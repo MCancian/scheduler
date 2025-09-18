@@ -9,3 +9,6 @@ Thumbs.db
 node_modules/
 dist/
 build/
+
+# Project files to ignore
+G-21 Weekly Schedule Draft.pptx
