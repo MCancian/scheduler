@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>16 Oct Schedule</title>
+  <style>
+    body { font-family: sans-serif; }
+    table { width:100%; border-collapse:collapse; table-layout:fixed; }
+    th, td { border:1px solid #ddd; padding:6px; text-align:center; vertical-align:middle; height:38px; }
+    th { background:#f2f2f2; }
+    .time-col { width:80px; }
+
+    /* Group colors */
+    .grp-red { background:#f8d7da; color:#7a1c21; font-weight:700; }
+    .grp-blue { background:#d6e9f8; color:#154c79; font-weight:700; }
+
+    /* Mid-level headers */
+    .col-ech { background:#c27ba0; color:#000; font-weight:700; }
+    .col-planners { background:#ed7d31; color:#000; font-weight:700; }
+
+    /* Leaf header cells (role-level) */
+    .leaf { background:#f9f9f9; color:#000; font-weight:600; }
+
+    /* Event cell visual helpers */
+  .event { color:#fff; font-weight:bold; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; padding:6px; box-sizing:border-box; border-radius:5px; font-size:1.05rem; }
+
+    /* Event color palette */
+    .event-tan { background:#d2b48c; color:#000; }      /* Individual */
+    .event-yellow { background:#ffff00; color:#000; }   /* CPF */
+    .event-blue { background:#0066cc; color:#fff; }     /* Adjudication [C-306/7] */
+    .event-brown { background:#8b4513; color:#fff; }    /* Player Cells */
+    .event-black { background:#000000; color:#fff; }    /* All Players [C-109 w/ VTC: E-100 /C-306/7] */
+    .event-red { background:#c00000; color:#fff; }      /* W-126A */
+    .event-blue-vtc { background:#0066cc; color:#fff; } /* C-109 w/ Blue VTC: C-306/7 */
+    .event-light-blue { background:#87ceeb; color:#000; } /* C-109 [No VTC] */
+    .event-gray { background:#d9d9d9; color:#000; }
+    .event-purple { background:#e2b8e2; color:#000; }
+    .event-orange { background:#ed7d31; color:#000; }
+
+    /* Red/Blue divider line */
+    .divider-left { border-left:4px solid #000 !important; }
+
+    /* Legend styling */
+    .legend { margin-top:12px; display:flex; flex-wrap:wrap; gap:12px; align-items:center; font-size:0.9rem; }
+    .legend .swatch { width:16px; height:16px; border:1px solid #888; display:inline-block; vertical-align:middle; margin-right:6px; }
+    .legend .line { width:0; height:16px; border-left:4px solid #000; display:inline-block; margin-right:6px; }
+
+    /* Print styles */
+    @page { size: Letter landscape; margin: 0.4in; }
+    thead { display: table-header-group; }
+    tfoot { display: table-footer-group; }
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size:11px; }
+      h2 { margin: 0 0 6px 0; font-size:16px; }
+      .no-print, .legend { display:none !important; }
+      table { page-break-inside: avoid; }
+      th, td { padding:3px; height:26px; }
+      .time-col { width:64px; }
+      .event { padding:3px; border-radius:3px; font-size:0.95rem; }
+      .leaf { font-weight:600; }
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print" style="margin:8px 0; display:flex; gap:8px; align-items:center;">
+    <button onclick="window.print()" style="padding:6px 12px; font-size:14px; cursor:pointer;">Print to PDF</button>
+  </div>
+  <h2>16 Oct Schedule</h2>
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="4" class="time-col">Time</th>
+        <th class="grp-red" colspan="6">Red Players</th>
+        <th class="grp-blue" colspan="6">Blue Players</th>
+      </tr>
+      <tr>
+        <th class="col-ech" colspan="3">Ech 2 &amp; 3</th>
+        <th class="col-planners" colspan="3">Planners</th>
+        <th class="col-ech" colspan="3">Ech 2 &amp; 3</th>
+        <th class="col-planners" colspan="3">Planners</th>
+      </tr>
+      <tr>
+        <th class="leaf">Lead</th>
+        <th class="leaf">Commanders</th>
+        <th class="leaf">AOs</th>
+        <th class="leaf">Lead</th>
+        <th class="leaf">Trusted Agents</th>
+        <th class="leaf">AOs</th>
+        <th class="leaf">Lead</th>
+        <th class="leaf">Commanders</th>
+        <th class="leaf">AOs</th>
+        <th class="leaf">Lead</th>
+        <th class="leaf">Trusted Agents</th>
+        <th class="leaf">AOs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Time rows 06:00 to 23:00 -->
+      
+      <!-- 06:00 -->
+      <tr>
+        <td>06:00</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <!-- 07:00 -->
+      <tr>
+        <td>07:00</td>
+        <td colspan="6"><div class="event event-tan">Late Check-in (Sims Hall)</div></td>
+        <td colspan="6"><div class="event event-tan">Late Check-in (Sims Hall)</div></td>
+      </tr>
+      <!-- 08:00 -->
+      <tr>
+        <td>08:00</td>
+        <!-- Red Ech 2 & 3 (3 cols) in C-109 -->
+        <td rowspan="2" colspan="3"><div class="event event-light-blue">Welcome Briefs (C-109)</div></td>
+        <!-- Red Planners (3 cols) in E-100 (stream, not TSWA) -->
+        <td rowspan="2" colspan="3"><div class="event event-black">Welcome Briefs (E-100 · streamed — NOT a TSWA yet)</div></td>
+        <!-- Blue Ech 2 & 3 (3 cols) in C-109 -->
+        <td rowspan="2" colspan="3"><div class="event event-light-blue">Welcome Briefs (C-109)</div></td>
+        <!-- Blue Planners: Lead & Trusted in C-109 (2 cols), AOs in C-306/7 (1 col) -->
+        <td rowspan="2" colspan="2"><div class="event event-light-blue">Welcome Briefs (C-109)</div></td>
+        <td rowspan="2"><div class="event event-blue">Welcome Briefs (C-306/7 · streamed)</div></td>
+      </tr>
+      <!-- 09:00 -->
+      <tr>
+        <td>09:00</td>
+      </tr>
+      <!-- 10:00 -->
+      <tr>
+        <td>10:00</td>
+        <!-- Red: Red CUB across Red side -->
+        <td colspan="6"><div class="event event-red">RED CUB (W-126A)</div></td>
+        <!-- Blue: TS//SCI CUB; C-109 for Ech + Planner Lead + Trusted (5 cols), C-306/7 for Planner AOs (1 col) -->
+        <td class="divider-left" colspan="5"><div class="event event-light-blue">BLUE TS//SCI CUB (C-109)</div></td>
+        <td><div class="event event-blue">BLUE TS//SCI CUB (C-306/7)</div></td>
+      </tr>
+      <!-- 11:00 -->
+      <tr>
+        <td>11:00</td>
+        <td colspan="6"><div class="event event-tan">Lunch</div></td>
+        <td colspan="6" class="divider-left"><div class="event event-tan">Lunch</div></td>
+      </tr>
+      <!-- 12:00 -->
+      <tr>
+        <td>12:00</td>
+        <td colspan="6"><div class="event event-brown">Cell Familiarization</div></td>
+        <td colspan="6" class="divider-left"><div class="event event-brown">Cell Familiarization</div></td>
+      </tr>
+      <!-- 13:00 -->
+      <tr>
+        <td>13:00</td>
+        <!-- Red Ech 2 & 3 (3 cols): Mission Creation -->
+        <td rowspan="3" colspan="3"><div class="event event-brown">Mission Creation (Game Tool)</div></td>
+        <!-- Red Planners (3 cols): Task Creation -->
+        <td rowspan="3" colspan="3"><div class="event event-brown">Task Creation (under Missions)</div></td>
+        <!-- Blue Ech 2 & 3 (3 cols): Mission Creation -->
+        <td rowspan="3" colspan="3" class="divider-left"><div class="event event-brown">Mission Creation (Game Tool)</div></td>
+        <!-- Blue Planners (3 cols): Task Creation -->
+        <td rowspan="3" colspan="3"><div class="event event-brown">Task Creation (under Missions)</div></td>
+      </tr>
+      <!-- 14:00 -->
+      <tr>
+        <td>14:00</td>
+      </tr>
+      <!-- 15:00 -->
+      <tr>
+        <td>15:00</td>
+      </tr>
+      <!-- 16:00 -->
+      <tr>
+        <td>16:00</td>
+        <!-- Red side: CDB across first 5 cols; Planner AOs (last col) remain in cells -->
+        <td colspan="5"><div class="event event-tan">CDB</div></td>
+        <td><div class="event event-brown">Planner AOs — Remain in Cells</div></td>
+        <!-- Blue side: CDB across first 5 cols; Planner AOs (last col) remain in cells -->
+        <td colspan="5" class="divider-left"><div class="event event-tan">CDB</div></td>
+        <td><div class="event event-brown">Planner AOs — Remain in Cells</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="legend">
+    <span class="swatch" style="background:#d2b48c"></span> Tan: Individual
+    <span class="swatch" style="background:#0066cc; margin-left:16px;"></span> Blue: Adjudication [C-306/7]
+    <span class="swatch" style="background:#8b4513; margin-left:16px;"></span> Brown: Player Cells
+    <span class="swatch" style="background:#000000; margin-left:16px;"></span> Black: E-100 (VTC)
+    <span class="swatch" style="background:#c00000; margin-left:16px;"></span> Red: W-126A
+    <span class="swatch" style="background:#0066cc; margin-left:16px;"></span> Blue: C-306/7 (VTC)
+    <span class="swatch" style="background:#87ceeb; margin-left:16px;"></span> Light Blue: C-109
+    <span class="line" style="margin-left:16px;"></span> Heavy line: Red/Blue separation
+  </div>
+</body>
+</html>

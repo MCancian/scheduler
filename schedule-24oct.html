@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>24 Oct Schedule</title>
+  <style>
+    body { font-family: sans-serif; }
+    table { width:100%; border-collapse:collapse; table-layout:fixed; }
+    th, td { border:1px solid #ddd; padding:6px; text-align:center; vertical-align:middle; height:38px; }
+
+    /* Proportional time duration classes */
+    .time-15min { height: 30px; }
+    .time-30min { height: 60px; }
+    .time-45min { height: 90px; }
+    .time-60min { height: 120px; }
+    .time-75min { height: 150px; }
+    th { background:#f2f2f2; }
+    .time-col { width:80px; }
+
+    /* Group colors */
+    .grp-red { background:#f8d7da; color:#7a1c21; font-weight:700; }
+    .grp-blue { background:#d6e9f8; color:#154c79; font-weight:700; }
+
+    /* Mid-level headers */
+    .col-ech { background:#c27ba0; color:#000; font-weight:700; }
+    .col-planners { background:#ed7d31; color:#000; font-weight:700; }
+    .col-senior-dv { background:#ffeb99; color:#000; font-weight:700; }
+    .col-dv { background:#fff2cc; color:#000; font-weight:700; }
+
+    /* Leaf header cells (role-level) */
+    .leaf { background:#f9f9f9; color:#000; font-weight:600; }
+
+    /* Event cell visual helpers */
+  .event { color:#fff; font-weight:bold; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; padding:6px; box-sizing:border-box; border-radius:5px; font-size:1.05rem; }
+
+    /* Event color palette */
+    .event-tan { background:#d2b48c; color:#000; }      /* Individual */
+    .event-yellow { background:#ffff00; color:#000; }   /* CPF */
+    .event-blue { background:#0066cc; color:#fff; }     /* Adjudication [C-306/7] */
+    .event-brown { background:#8b4513; color:#fff; }    /* Player Cells */
+    .event-black { background:#000000; color:#fff; }    /* All Players [C-109 w/ VTC: E-100 /C-306/7] */
+    .event-red { background:#c00000; color:#fff; }      /* W-126A */
+    .event-blue-vtc { background:#0066cc; color:#fff; } /* C-109 w/ Blue VTC: C-306/7 */
+    .event-light-blue { background:#87ceeb; color:#000; } /* C-109 [No VTC] */
+    .event-white { background:#ffffff; color:#000; border: 1px solid #ccc; } /* White */
+    .event-gray { background:#d9d9d9; color:#000; }
+    .event-purple { background:#e2b8e2; color:#000; }
+    .event-orange { background:#ed7d31; color:#000; }
+
+    /* Red/Blue divider line */
+    .divider-left { border-left:4px solid #000 !important; }
+
+    /* Legend styling */
+    .legend { margin-top:12px; display:flex; flex-wrap:wrap; gap:12px; align-items:center; font-size:0.9rem; }
+    .legend .swatch { width:16px; height:16px; border:1px solid #888; display:inline-block; vertical-align:middle; margin-right:6px; }
+    .legend .line { width:0; height:16px; border-left:4px solid #000; display:inline-block; margin-right:6px; }
+
+    /* Print styles */
+    @page { size: Letter landscape; margin: 0.4in; }
+    thead { display: table-header-group; }
+    tfoot { display: table-footer-group; }
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size:11px; }
+      h2 { margin: 0 0 6px 0; font-size:16px; }
+      .no-print, .legend { display:none !important; }
+      table { page-break-inside: avoid; }
+      th, td { padding:3px; height:26px; }
+      .time-col { width:64px; }
+      .event { padding:3px; border-radius:3px; font-size:0.95rem; }
+      .leaf { font-weight:600; }
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print" style="margin:8px 0; display:flex; gap:8px; align-items:center;">
+    <button onclick="window.print()" style="padding:6px 12px; font-size:14px; cursor:pointer;">Print to PDF</button>
+  </div>
+  <h2>24 Oct Schedule</h2>
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2" class="time-col">Time</th>
+        <th class="grp-blue" colspan="1">Players</th>
+        <th class="col-senior-dv" colspan="1">Senior DVs</th>
+        <th class="col-dv" colspan="1">DVs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Thursday, Oct 23 Reception -->
+      <tr>
+        <td>18:00</td>
+        <td></td>
+        <td colspan="2"><div class="event event-tan">Thursday, Oct. 23: 1800 Reception at NWC President's House (Quarters AA)</div></td>
+      </tr>
+      <!-- 07:30-08:00 (30 min) -->
+      <tr class="time-30min">
+        <td>07:30<br>-<br>08:00</td>
+        <td></td>
+        <td colspan="2"><div class="event event-red">Badging (MLH Lobby)</div></td>
+      </tr>
+      <!-- 08:00-08:45 (45 min) -->
+      <tr class="time-45min">
+        <td>08:00<br>-<br>08:45</td>
+        <td rowspan="2"><div class="event event-blue">Final SITREP Brief</div></td>
+        <td colspan="2"><div class="event event-red">Breakfast (MLH Cafe)</div></td>
+      </tr>
+      <!-- 08:45-09:00 (15 min) -->
+      <tr class="time-15min">
+        <td>08:45<br>-<br>09:00</td>
+        <td colspan="2"><div class="event event-red">Break and Move to MLH Auditorium</div></td>
+      </tr>
+      <!-- 09:00-10:15 (75 min) -->
+      <tr class="time-75min">
+        <td>09:00<br>-<br>10:15</td>
+        <td rowspan="3"><div class="event event-brown">Plenary Prep</div></td>
+        <td colspan="2"><div class="event event-red">G21 Scene Setter</div></td>
+      </tr>
+      <!-- 10:15-10:30 (15 min) -->
+      <tr class="time-15min">
+        <td>10:15<br>-<br>10:30</td>
+        <td><div class="event event-tan">Transition to Sims E-100</div></td>
+        <td><div class="event event-tan">Transition to Player Cells</div></td>
+      </tr>
+      <!-- 10:30-11:15 (45 min) -->
+      <tr class="time-45min">
+        <td>10:30<br>-<br>11:15</td>
+        <td><div class="event event-black">Capabilities SAP Discussion (Sims E-100)</div></td>
+        <td><div class="event event-brown">Observe Game Play</div></td>
+      </tr>
+      <!-- 11:15-11:30 (15 min) -->
+      <tr class="time-15min">
+        <td>11:15<br>-<br>11:30</td>
+        <td rowspan="2"><div class="event event-tan">Lunch</div></td>
+        <td colspan="2"><div class="event event-red">Break and Movement to MLH</div></td>
+      </tr>
+      <!-- 11:30-12:15 (45 min) -->
+      <tr class="time-45min">
+        <td>11:30<br>-<br>12:15</td>
+        <td colspan="2"><div class="event event-red">Global 21 Outcomes Executive Summary (White Cell lead)</div></td>
+      </tr>
+      <!-- 12:15-12:45 (30 min) -->
+      <tr class="time-30min">
+        <td>12:15<br>-<br>12:45</td>
+        <td rowspan="4"><div class="event event-blue">Final Plenary</div></td>
+        <td colspan="2"><div class="event event-red">NWC Gaming Report</div></td>
+      </tr>
+      <!-- 12:45-13:45 (60 min) -->
+      <tr class="time-60min">
+        <td>12:45<br>-<br>13:45</td>
+        <td colspan="2"><div class="event event-red">Lunch (MLH Cafe)</div></td>
+      </tr>
+      <!-- 13:45-14:45 (60 min) -->
+      <tr class="time-60min">
+        <td>13:45<br>-<br>14:45</td>
+        <td colspan="2"><div class="event event-red">Global 21 Leadership Roundtable (SN/CNO/IPC/CPF Perspectives)</div></td>
+      </tr>
+      <!-- 14:45-15:00 (15 min) -->
+      <tr class="time-15min">
+        <td>14:45<br>-<br>15:00</td>
+        <td colspan="2"><div class="event event-red">CPF Closing Comments</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="legend">
+    <span class="swatch" style="background:#d2b48c"></span> Tan: Individual
+    <span class="swatch" style="background:#0066cc; margin-left:16px;"></span> Blue: C-109 (VTC to C-306/7)
+    <span class="swatch" style="background:#8b4513; margin-left:16px;"></span> Brown: Player Cells
+    <span class="swatch" style="background:#000000; margin-left:16px;"></span> Black: E-100
+    <span class="swatch" style="background:#c00000; margin-left:16px;"></span> Red: MLH
+  </div>
+</body>
+</html>

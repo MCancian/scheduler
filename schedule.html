@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weekly Schedule</title>
+    <style>
+        body { font-family: sans-serif; }
+        table { width:100%; border-collapse:collapse; table-layout:fixed; }
+        th, td { border:1px solid #ddd; padding:8px; text-align:center; vertical-align:middle; height:40px; }
+
+        /* Proportional time duration classes */
+        .time-30min { height: 30px; }
+        .time-60min { height: 60px; }
+        .time-90min { height: 90px; }
+        .time-120min { height: 120px; }
+        .time-150min { height: 150px; }
+        .time-180min { height: 180px; }
+        .time-300min { height: 300px; }
+        th { background:#f2f2f2; }
+        .time-col { width:80px; }
+        .event { color:#fff; font-weight:bold; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; padding:5px; box-sizing:border-box; border-radius:5px; }
+    .event-task-creation, .col-planners { background:#ed7d31; }
+    .event-battle-watch, .col-bw { background:#70ad47; }
+        /* Color classes */
+        .event-adjudication-training, .event-adjudication, .event-wiac { background:#00b0f0; }
+        .event-mission-creation { background:#e2b8e2; color:#000; }
+    .event-late-check-in, .event-welcome-in-briefs, .event-team-briefs, .event-cell-fam, .event-lunch, .event-cdrs-intent, .event-control-team-meeting, .event-cmdrs-ao-cub-prep, .event-cub, .event-sap, .event-cdb, .event-tf-lvl-wg, .event-check-in-sims { background:#fbe5d6; color:#000; }
+        .event-adm-koehler, .event-bw, .event-check-in-dv-breakfast, .event-g21-overview, .event-sap-brief, .event-dv-lunch, .event-g21-outcomes, .event-dv-roundtable { background:#ffff00; color:#000; }
+        .event-task-brief, .event-cdrs-intent-validation { background:#ed7d31; }
+        .event-tcb, .event-revisions, .event-jtf-working-groups { background:#e2b8e2; color:#000; }
+        .event-move-7-results, .event-player-plenary, .event-final-preps { background:#d9d9d9; color:#000; }
+    .event-final-plenary { background:#2f5597; }
+    .event-finex { background:#c00000; }
+    /* Additional palette */
+    .tan { background:#fbe5d6; color:#000; }
+    .yellow { background:#ffff00; color:#000; }
+    .blue { background:#00b0f0; color:#fff; }
+    .brown { background:#8b5e3c; color:#fff; }
+    .black { background:#000; color:#fff; }
+    .light-blue { background:#9dc3e6; color:#000; }
+        .col-ech { background:#c27ba0; color:#000; }
+        .col-planners { color:#000; }
+    .col-bw { color:#000; }
+    .col-adjudication { background:#00b0f0; color:#fff; font-weight:700; }
+    /* New color helpers */
+    .event-black { background:#000 !important; color:#fff !important; }
+        /* Simplified styling - complex overlays removed */
+        /* Simplified color classes */
+        .pill-half-red-blue {
+            background: linear-gradient(90deg, #c00000 50%, #2f5597 50%);
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <h2>Game Days 18 - 23 Oct (Excluding Sunday)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2" class="time-col">Time</th>
+                <th style="border-bottom:none;">15 Oct</th>
+                <th style="border-bottom:none;">16 Oct</th>
+                <th style="border-bottom:none;" colspan="2">17 Oct</th>
+                <th colspan="4" style="border-bottom:none;">Game Days 18 - 23 Oct (Excluding Sunday)</th>
+                <th style="border-bottom:none;">24 Oct</th>
+            </tr>
+            <tr>
+                <th>(Wed)</th>
+                <th>(Thur)</th>
+                <th>(Fri)</th>
+                <th></th>
+                <th class="col-ech">Ech 2 & 3</th>
+                <th class="col-planners">Planners</th>
+                <th class="col-bw">BW</th>
+                <th class="col-adjudication">Adjudication</th>
+                <th>(Fri)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 06:00-06:30 (30 min) -->
+            <tr class="time-30min">
+                <td>06:00<br>-<br>06:30</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 06:30-07:00 (30 min) -->
+            <tr class="time-30min">
+                <td>06:30<br>-<br>07:00</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><div class="event event-black">SAP CUB</div></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 07:00-07:30 -->
+            <tr class="time-30min">
+                <td>07:00<br>-<br>07:30</td>
+                <td rowspan="2"><div class="event event-cub">Check-in (Sims)</div></td>
+                <td rowspan="2"><div class="event event-late-check-in">Late Check-in (Sims Lobby)</div></td>
+                <td></td>
+                <td></td>
+                <td rowspan="2"><div class="event light-blue">CUB</div></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td rowspan="2"><div class="event event-check-in-dv-breakfast">Check-in DV Breakfast</div></td>
+            </tr>
+            <!-- 07:30-08:00 -->
+            <tr class="time-30min">
+                <td>07:30<br>-<br>08:00</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 08:00-08:30 -->
+            <tr class="time-30min">
+                <td>08:00<br>-<br>08:30</td>
+                <td rowspan="16"><div class="event event-adjudication-training">Adjudication Training (until 1600)</div></td>
+                <td rowspan="4"><div class="event event-black">Welcome Briefs</div></td>
+                <td rowspan="4"><div class="event brown">Task Creation</div></td>
+                <td></td>
+                <td rowspan="4"><div class="event light-blue">Mission Creation + CDB</div></td>
+                <td rowspan="6"><div class="event brown">Task Drafting</div></td>
+                <td></td>
+                <td></td>
+                <td rowspan="4"><div class="event event-move-7-results">Move 7 Results Brief</div></td>
+            </tr>
+            <!-- 08:30-09:00 -->
+            <tr class="time-30min">
+                <td>08:30<br>-<br>09:00</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 09:00-09:30 -->
+            <tr class="time-30min">
+                <td>09:00<br>-<br>09:30</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 09:30-10:00 -->
+            <tr class="time-30min">
+                <td>09:30<br>-<br>10:00</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td rowspan="5"><div class="event yellow">CPF @ OCS</div></td>
+            </tr>
+            <!-- 10:00-10:30 -->
+            <tr class="time-30min">
+                <td>10:00<br>-<br>10:30</td>
+                <td rowspan="2"><div class="event pill-half-red-blue">CUB</div></td>
+                <td rowspan="2"><div class="event brown">Task Submission</div></td>
+                <td rowspan="2"><div class="event brown">Mission Submission</div></td>
+                <td></td>
+                <td></td>
+                <td rowspan="4"><div class="event event-g21-overview">G-21 Overview</div></td>
+            </tr>
+            <!-- 10:30-11:00 -->
+            <tr class="time-30min">
+                <td>10:30<br>-<br>11:00</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 11:00-11:30 -->
+            <tr class="time-30min">
+                <td>11:00<br>-<br>11:30</td>
+                <td rowspan="2"><div class="event event-lunch">Lunch</div></td>
+                <td rowspan="2"><div class="event event-lunch">Lunch</div></td>
+                <td rowspan="10"><div class="event brown">24-96 hr Planning (Combined)</div></td>
+                <td rowspan="4"><div class="event brown">Finalize Tasks</div></td>
+                <td rowspan="10"><div class="event event-battle-watch">EXECUTION</div></td>
+                <td rowspan="10"><div class="event event-adjudication">Adjudication</div></td>
+                <td></td>
+            </tr>
+            <!-- 11:30-12:00 -->
+            <tr class="time-30min">
+                <td>11:30<br>-<br>12:00</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 12:00-12:30 -->
+            <tr class="time-30min">
+                <td>12:00<br>-<br>12:30</td>
+                <td rowspan="2"><div class="event brown">Cell Familiarization</div></td>
+                <td rowspan="2"><div class="event brown">Finalize Tasks</div></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td rowspan="4"><div class="event event-dv-lunch">DV Lunch</div></td>
+            </tr>
+            <!-- 12:30-13:00 -->
+            <tr class="time-30min">
+                <td>12:30<br>-<br>13:00</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 13:00-13:30 -->
+            <tr class="time-30min">
+                <td>13:00<br>-<br>13:30</td>
+                <td rowspan="6"><div class="event brown">Mission Creation</div></td>
+                <td rowspan="2"><div class="event brown">Task Brief</div></td>
+                <td></td>
+                <td rowspan="4"><div class="event event-jtf-working-groups">Working Groups</div></td>
+                <td></td>
+                <td rowspan="2"><div class="event event-g21-outcomes">G21 Outcomes</div></td>
+            </tr>
+            <!-- 13:30-14:00 -->
+            <tr class="time-30min">
+                <td>13:30<br>-<br>14:00</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 14:00-14:30 -->
+            <tr class="time-30min">
+                <td>14:00<br>-<br>14:30</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 14:30-15:00 -->
+            <tr class="time-30min">
+                <td>14:30<br>-<br>15:00</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 15:00-15:30 -->
+            <tr class="time-30min">
+                <td>15:00<br>-<br>15:30</td>
+                <td></td>
+                <td rowspan="2"><div class="event brown">Mission Submission</div></td>
+                <td></td>
+                <td rowspan="2"><div class="event event-jtf-working-groups">Working Groups</div></td>
+                <td></td>
+                <td></td>
+                <td rowspan="2"><div class="event event-dv-lunch">DV Lunch</div></td>
+            </tr>
+            <!-- 15:30-16:00 -->
+            <tr class="time-30min">
+                <td>15:30<br>-<br>16:00</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 16:00-16:30 -->
+            <tr class="time-30min">
+                <td>16:00<br>-<br>16:30</td>
+                <td rowspan="2"><div class="event event-check-in-sims">Check-in (until 1830)</div></td>
+                <td rowspan="2"><div class="event light-blue">CDB</div></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- 16:30-17:00 -->
+            <tr class="time-30min">
+                <td>16:30<br>-<br>17:00</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <!-- Time jump indicator -->
+            <tr style="border-bottom:4px solid #000;">
+                <td colspan="10" style="height:10px; background:#f5f5f5; text-align:center; font-style:italic; color:#666;">⋯ Time Jump ⋯</td>
+            </tr>
+            <!-- 22:00+ (60 min) -->
+            <tr class="time-60min">
+                <td>22:00+</td>
+                <td></td>
+                <td></td>
+                <td><div class="event brown">3-1 TA CUB Prep</div></td>
+                <td></td>
+                <td><div class="event brown">3-1 TA CUB Drafting</div></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="legend" style="margin-top:12px; font-size:.9rem;">
+        <strong>Legend:</strong>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; align-items:center;">
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span class="tan" style="display:inline-block; width:18px; height:12px; border:1px solid #ccc;"></span> Tan: Individual</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span class="yellow" style="display:inline-block; width:18px; height:12px; border:1px solid #ccc;"></span> Yellow: CPF</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span class="blue" style="display:inline-block; width:18px; height:12px; border:1px solid #ccc;"></span> Blue: Adjudication</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span class="brown" style="display:inline-block; width:18px; height:12px; border:1px solid #ccc;"></span> Brown: Player Cells</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span class="black" style="display:inline-block; width:18px; height:12px; border:1px solid #ccc;"></span> Black: E-100</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span class="light-blue" style="display:inline-block; width:18px; height:12px; border:1px solid #ccc;"></span> Light Blue: C-109</span>
+        </div>
+        <div style="margin-top:8px; font-size:.8rem; color:#666;">
+            <strong>Note:</strong> Row heights are proportional to actual time duration. Events are consolidated to show continuous activities.
+        </div>
+    </div>
+</body>
+</html>
