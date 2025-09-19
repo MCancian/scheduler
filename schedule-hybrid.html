@@ -98,10 +98,9 @@
 
     th.time { top: 0; z-index: 4; }
 
-    tbody td { 
+    tbody td {
       padding: 6px 8px;
       font-size: 12px;
-      background-image: linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--grid) calc(100% - 1px));
       vertical-align: top;
     }
 
@@ -111,8 +110,6 @@
 
     /* When a cell represents a multi-row event, tint the full background */
     tbody td.block {
-      /* Keep the bottom grid line while applying a solid background */
-      background-image: linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--grid) calc(100% - 1px));
       font-weight: 600;
       vertical-align: middle;
       text-align: center;
@@ -149,10 +146,6 @@
     /* Quarter-hour rows (no time labels) */
     tr.quarter-hour td.time {
       border-right: 1px solid var(--border);
-    }
-
-    tr.quarter-hour td:not(.time) {
-      border-top: 1px dotted #ddd; /* Subtle dotted line for quarter hours */
     }
 
     /* Compact helpers for content blocks inside cells */
