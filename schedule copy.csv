@@ -1,0 +1,78 @@
+day,lane_num,lane_desc,start_time,end_time,title,location
+Wed,1,Events,07:00,09:00,Check-in,Individual
+Wed,1,Events,09:00,12:00,Adjudication Training,C-306/7
+Wed,1,Events,12:00,13:00,Lunch,Individual
+Wed,1,Events,15:30,19:00,Check-in Sims,Individual
+
+Thu,2,Lane 1,07:00,07:45,Late Check-in,Individual
+Thu,2,Lane 1,08:00,09:30,Welcome & In-Briefs,C-109 + VTC
+Thu,2,Lane 1,09:30,10:30,Initial CUB,C-109 / W-129A
+Thu,2,Lane 1,12:00,13:00,Lunch,Individual
+Thu,2,Lane 1,13:00,14:00,Cell Familiarization,Cells
+Thu,2,Lane 1,14:00,16:00,Mission Creation,Cells
+Thu,2,Lane 1,16:00,17:00,CDB,C-109
+Thu,3,Lane 2,07:00,07:45,Late Check-in,Sims Lobby
+Thu,3,Lane 2,08:00,09:30,Welcome & In-Briefs,C-109 / Virtual
+Thu,3,Lane 2,09:30,10:30,CUB Brief,C-109
+Thu,3,Lane 2,12:00,13:00,Lunch,Individual
+Thu,3,Lane 2,13:00,14:00,Cell Familiarization,Cells
+Thu,3,Lane 2,14:00,16:00,Mission Creation,Cells
+Thu,3,Lane 2,16:00,17:00,CDB,C-109
+
+Fri,4,Lane 1,08:00,10:00,Task Creation,Cells
+Fri,4,Lane 1,10:00,11:00,Planner/Adjudication Task Brief,Cells
+Fri,4,Lane 1,11:00,12:00,Lunch,Individual
+Fri,4,Lane 1,12:00,15:30,JTF Working Groups (24–96 hrs),Cells
+Fri,4,Lane 1,15:30,16:00,Campaign Plan Approval Brief,C-109
+Fri,5,Lane 2,08:00,10:00,Task Creation,Cells
+Fri,5,Lane 2,10:00,11:00,Planner/Adjudication Task Brief,Cells
+Fri,5,Lane 2,11:00,12:00,Lunch,Individual
+Fri,5,Lane 2,12:00,15:30,JTF Working Groups (24–96 hrs),Cells
+Fri,5,Lane 2,15:30,16:00,Campaign Plan Approval Brief,C-109
+
+Sat-Thu,6,Ech 2 & 3,06:30,07:00,SAP CUB,E-100
+Sat-Thu,6,Ech 2 & 3,07:00,08:00,CUB,C-109 + VTC
+Sat-Thu,6,Ech 2 & 3,08:00,09:30,Mission Creation,Cells
+Sat-Thu,6,Ech 2 & 3,09:30,10:30,CDB,C-109
+Sat-Thu,6,Ech 2 & 3,10:30,11:00,Mission Revisions,Cells
+Sat-Thu,6,Ech 2 & 3,11:00,12:00,Lunch,Individual
+Sat-Thu,6,Ech 2 & 3,12:00,12:30,24-96 Hour Planning,Cells
+Sat-Thu,6,Ech 2 & 3,12:30,13:00,Commander's Touchpoint,
+Sat-Thu,6,Ech 2 & 3,13:00,15:30,Finalize Campaign Plan,Cells
+Sat-Thu,6,Ech 2 & 3,15:30,16:00,Campaign Plan Approval Brief,C-109
+
+Sat-Thu,7,Planners (Main/TA),08:00,09:30,Task Drafting,Cells
+Sat-Thu,7,Planners (Main/TA),09:30,10:30,CDB,C-109
+Sat-Thu,7,Planners (Main/TA),10:30,12:30,Task Finalization,Cells
+Sat-Thu,7,Planners (Main/TA),12:30,13:00,Task Submission,Cells
+Sat-Thu,7,Planners (Main/TA),13:00,13:30,Planner/Adjudication Task Brief,Cells
+Sat-Thu,7,Planners (Main/TA),13:30,17:00,JTF Working Groups (24–96 hrs),Cells
+
+Sat-Thu,8,Battle Watch,13:00,13:30,Planner/Adjudication Task Brief,Cells
+Sat-Thu,8,Battle Watch,13:30,14:30,Task Review,C-306/7
+Sat-Thu,8,Battle Watch,14:30,15:00,Adjudication Sync,C-306/7
+Sat-Thu,8,Battle Watch,15:00,17:00,Adjudication (to 2200),C-306/7
+
+Sat-Thu,9,Adjudication,08:30,09:30,RFI Response,C-306/7
+Sat-Thu,9,Adjudication,11:30,12:00,WIAC Brief,E-100
+Sat-Thu,9,Adjudication,12:00,13:30,WIAC Resolution,E-100
+Sat-Thu,9,Adjudication,13:30,15:00,Adjudication Prep,C-306/7
+Sat-Thu,9,Adjudication,15:00,17:00,Adjudication (to 2200),C-306/7
+Sat-Thu,9,Adjudication,22:00,23:00,SITREP Writing,C-306/7
+
+Fri,10,Players,08:00,09:00,Final CUB,C-109 + VTC
+Fri,10,Players,09:00,11:30,Plenary Prep,Cells
+Fri,10,Players,11:30,12:30,Lunch,Individual
+Fri,10,Players,12:30,15:00,Final Plenary,C-109 + VTC
+Fri,11,DVs,07:30,08:00,Check-in (MLH),MLH
+Fri,11,DVs,08:00,08:45,DV Breakfast,MLH
+Fri,11,DVs,08:45,09:00,Move to MLH Auditorium,MLH
+Fri,11,DVs,09:00,10:15,G21 Scene Setter,MLH
+Fri,11,DVs,10:15,10:30,Move to Sims,Individual
+Fri,11,DVs,10:30,11:15,Sims Activities,Sims
+Fri,11,DVs,11:15,11:30,Move to MLH,Individual
+Fri,11,DVs,11:30,12:15,G21 Report,MLH
+Fri,11,DVs,12:15,12:45,NWC Report,MLH
+Fri,11,DVs,12:45,13:45,Lunch,Individual
+Fri,11,DVs,13:45,14:45,Leadership Roundtable,MLH
+Fri,11,DVs,14:45,15:00,CPF Closing,MLH

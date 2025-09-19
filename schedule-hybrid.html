@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Event Schedule — Hybrid (Grouped Days with Lanes)</title>
+  <style>
+    :root {
+      --border: #1d3557;
+      --grid: #324a6b33;
+      --header-bg: #eef3f9;
+      --time-bg: #f8fafc;
+      --text: #0f172a;
+
+      /* Lane header colors inspired by the reference image */
+      --lane-ech: #d78bdc;          /* purple */
+      --lane-planners: #f29d4b;     /* orange */
+      --lane-bwatch: #79c94e;       /* green */
+      --lane-adj: #1fa5da;          /* blue */
+    }
+
+    html, body { height: 100%; }
+    body {
+      margin: 0; 
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif; 
+      color: var(--text);
+      background: white;
+    }
+
+    header.classification {
+      text-align: center;
+      padding: 6px 8px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #2e7d32;
+    }
+
+    .wrap {
+      padding: 12px 16px 24px;
+      overflow: auto;
+    }
+
+    h1 { font-size: 18px; margin: 0 0 12px; }
+    .subtitle { color: #334155; font-size: 12px; margin-bottom: 10px; }
+
+    table.schedule {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed; /* keeps lanes aligned */
+      border: 1px solid var(--border);
+    }
+
+    caption { 
+      caption-side: top; 
+      font-weight: 600; 
+      text-align: left; 
+      padding: 6px 4px; 
+    }
+
+    col.time-col { width: 84px; }
+
+    thead th, tbody td {
+      border: 1px solid var(--border);
+    }
+
+    thead th {
+      background: var(--header-bg);
+      font-size: 12px;
+      padding: 6px 8px;
+      text-align: center;
+      position: sticky; /* sticky header */
+      top: 0;
+      z-index: 3;
+    }
+
+    thead th.group {
+      font-weight: 800;
+      border-bottom-width: 2px;
+    }
+
+    thead th.subhead { font-weight: 600; }
+
+    thead th.lane-ech { background: color-mix(in lab, var(--lane-ech) 65%, white); }
+    thead th.lane-planners { background: color-mix(in lab, var(--lane-planners) 65%, white); }
+    thead th.lane-bwatch { background: color-mix(in lab, var(--lane-bwatch) 65%, white); }
+    thead th.lane-adj { background: color-mix(in lab, var(--lane-adj) 65%, white); color: #09263a; }
+
+    /* Sticky first column */
+    th.time, td.time {
+      position: sticky;
+      left: 0;
+      z-index: 2;
+      background: var(--time-bg);
+      text-align: right;
+      font-feature-settings: "tnum" 1, "lnum" 1;
+      white-space: nowrap;
+    }
+
+    th.time { top: 0; z-index: 4; }
+
+    tbody td { 
+      padding: 6px 8px;
+      font-size: 12px;
+      background-image: linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--grid) calc(100% - 1px));
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) td:not(.time) {
+      background-color: #fbfdff;
+    }
+
+    /* When a cell represents a multi-row event, tint the full background */
+    tbody td.block {
+      /* Keep the bottom grid line while applying a solid background */
+      background-image: linear-gradient(to bottom, transparent 0, transparent calc(100% - 1px), var(--grid) calc(100% - 1px));
+      font-weight: 600;
+      vertical-align: middle;
+      text-align: center;
+    }
+    tbody td.block.tan {
+      background-color: #f0d19b; /* tan */
+      color: #1d1d1d;
+    }
+    tbody td.block.adj {
+      background-color: var(--lane-adj); /* blue */
+      color: #ffffff;
+    }
+    tbody td.block.ech { background-color: var(--lane-ech); }
+    tbody td.block.planners { background-color: var(--lane-planners); }
+    tbody td.block.bwatch { background-color: var(--lane-bwatch); }
+    /* Make the inner pill transparent when used inside a block-filled cell */
+    tbody td.block .event {
+      background: transparent;
+      padding: 4px 2px;
+      font-size: clamp(11px, 3vw, 18px);
+      display: block;
+      height: 100%;
+      min-height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Special late block row (2200–2300) */
+    tr.late-block td, tr.late-block th {
+      border-top: 4px solid #111;
+    }
+
+    /* Quarter-hour rows (no time labels) */
+    tr.quarter-hour td.time {
+      border-right: 1px solid var(--border);
+    }
+
+    tr.quarter-hour td:not(.time) {
+      border-top: 1px dotted #ddd; /* Subtle dotted line for quarter hours */
+    }
+
+    /* Compact helpers for content blocks inside cells */
+    .event {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin: 1px 0;
+      font-weight: 600;
+      font-size: clamp(10px, 2.5vw, 16px);
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    .event.ech { background: var(--lane-ech); }
+    .event.planners { background: var(--lane-planners); }
+    .event.bwatch { background: var(--lane-bwatch); }
+    .event.adj { background: var(--lane-adj); color: white; }
+    .event.tan { background: #f0d19b; color: #2b2b2b; }
+
+    /* Print tweaks */
+    @media print {
+      .wrap { padding: 0; }
+      header.classification { padding: 2px 0; }
+      thead th { position: sticky; top: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="classification">UNCLASSIFIED</header>
+  <div class="wrap">
+    <h1>Weekly Event Schedule</h1>
+    <div class="subtitle">Hybrid layout: grouped days with varying lane counts; half-hour display 0600–1700, plus 2200–2300.</div>
+
+    <table class="schedule" aria-describedby="table-desc">
+      <caption id="table-desc">Time down the left; grouped day headers across the top. Total lanes: 11.</caption>
+      <colgroup>
+        <col class="time-col" />
+        <!-- 11 lanes (content columns) -->
+        <col span="11" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="time" rowspan="2" scope="col">Time</th>
+          <!-- Day groups with specified colspans: 1, 2, 2, 4, 2 -->
+          <th class="group" scope="colgroup" colspan="1">15 Oct (Wed)</th>
+          <th class="group" scope="colgroup" colspan="2">16 Oct (Thu)</th>
+          <th class="group" scope="colgroup" colspan="2">17 Oct (Fri)</th>
+          <th class="group" scope="colgroup" colspan="4">Game Days (Players &amp; Adjudicators)<br/>18–23 Oct (Excl Sun)</th>
+          <th class="group" scope="colgroup" colspan="2">24 Oct (Fri)</th>
+        </tr>
+        <tr>
+          <!-- 11 subordinate lane headers -->
+          <th class="subhead" scope="col">Events</th>
+
+          <th class="subhead" scope="col">Lane 1</th>
+          <th class="subhead" scope="col">Lane 2</th>
+
+          <th class="subhead" scope="col">Lane 1</th>
+          <th class="subhead" scope="col">Lane 2</th>
+
+          <th class="subhead lane-ech" scope="col">Ech 2 &amp; 3</th>
+          <th class="subhead lane-planners" scope="col">Planners (Main/TA)</th>
+          <th class="subhead lane-bwatch" scope="col">Battle Watch</th>
+          <th class="subhead lane-adj" scope="col">Adjudication</th>
+
+          <th class="subhead" scope="col">Players</th>
+          <th class="subhead" scope="col">DVs</th>
+        </tr>
+      </thead>
+      <tbody id="schedule-body">
+        <!-- Populated by JS -->
+      </tbody>
+    </table>
+
+    <p style="margin-top:12px; font-size:12px; color:#475569;">
+      Tip: Add event pills inside cells using <code>&lt;span class="event ech|planners|bwatch|adj"&gt;Label&lt;/span&gt;</code>.
+    </p>
+  </div>
+
+  <script>
+    // CSV parsing functionality
+    async function parseCSV() {
+      try {
+        const response = await fetch('schedule.csv');
+        const csvText = await response.text();
+        const lines = csvText.trim().split('\n');
+        const headers = lines[0].split(',');
+
+        return lines.slice(1).map(line => {
+          const values = line.split(',');
+          const event = {};
+          headers.forEach((header, index) => {
+            event[header.trim()] = values[index] ? values[index].trim() : '';
+          });
+          return event;
+        }).filter(event => event.day); // Filter out empty rows
+      } catch (error) {
+        console.error('Error loading CSV:', error);
+        return [];
+      }
+    }
+
+    // Location to color mapping
+    function getColorClass(location) {
+      const locationMap = {
+        'Individual': 'tan',
+        'C-306/7': 'adj',
+        'C-109': 'ech',
+        'C-109 + VTC': 'ech',
+        'C-109 / W-129A': 'ech',
+        'C-109 / Virtual': 'ech',
+        'Cells': 'planners',
+        'E-100': 'bwatch',
+        'MLH': 'tan',
+        'Sims': 'bwatch',
+        'Sims Lobby': 'bwatch'
+      };
+      return locationMap[location] || 'tan';
+    }
+
+    (function buildRows() {
+      const tbody = document.getElementById('schedule-body');
+
+      // Configurable time window
+      const startMinutes = 6 * 60;   // 0600
+      const endMinutes = 17 * 60;    // 1700 for span calculations
+      const lastRowTime = 17 * 60;   // 1700 - actual last row generated
+      const step = 15;               // minutes
+
+      const lanes = 11;              // per requirements (excludes Time column)
+
+      function fmt(num) { return String(num).padStart(2, '0'); }
+      function labelFromMinutes(total) {
+        const h = Math.floor(total / 60);
+        const m = total % 60;
+        return `${fmt(h)}${fmt(m)}`; // e.g., 0615
+      }
+
+      // Generate rows from 0600 to 1700
+      for (let t = startMinutes; t <= lastRowTime; t += step) {
+        const tr = document.createElement('tr');
+        const timeCell = document.createElement('td');
+        timeCell.className = 'time';
+
+        // Only show labels on half-hour marks
+        const minutes = t % 60;
+        if (minutes === 0 || minutes === 30) {
+          timeCell.textContent = labelFromMinutes(t);
+        } else {
+          timeCell.textContent = ''; // Empty for quarter-hour marks
+          tr.classList.add('quarter-hour'); // Add class for styling
+        }
+        tr.appendChild(timeCell);
+
+        for (let i = 0; i < lanes; i++) {
+          const td = document.createElement('td');
+          td.setAttribute('data-lane', String(i + 1));
+          td.setAttribute('data-time', t); // Store time for event mapping
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      }
+
+      // Add rows for 2200-2300 (22:00 to 23:00) with 15-minute increments
+      for (let t = 22 * 60; t <= 23 * 60; t += step) {
+        const tr = document.createElement('tr');
+        if (t === 22 * 60) tr.className = 'late-block'; // Dark separator for first row
+
+        const timeCell = document.createElement('td');
+        timeCell.className = 'time';
+
+        // Only show labels on half-hour marks
+        const minutes = t % 60;
+        if (minutes === 0 || minutes === 30) {
+          timeCell.textContent = labelFromMinutes(t);
+        } else {
+          timeCell.textContent = '';
+          tr.classList.add('quarter-hour');
+        }
+        tr.appendChild(timeCell);
+
+        for (let i = 0; i < lanes; i++) {
+          const td = document.createElement('td');
+          td.setAttribute('data-lane', String(i + 1));
+          td.setAttribute('data-time', t);
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      }
+
+      // --- Helper functions to add multi-row events ---
+      function parseTime(hhmm) {
+        // Accepts '07:00' format from CSV
+        const parts = String(hhmm).split(':');
+        const h = parseInt(parts[0], 10);
+        const m = parseInt(parts[1], 10) || 0;
+        return h * 60 + m;
+      }
+
+      function addEventFromCSV(event) {
+        const lane = parseInt(event.lane_num);
+        const startTime = parseTime(event.start_time);
+        const endTime = parseTime(event.end_time);
+        const label = event.title;
+        const cssClass = getColorClass(event.location);
+
+        if (endTime <= startTime) return;
+
+        // Handle events that span into late hours (22:00+)
+        let adjustedEndTime = endTime;
+        let adjustedStartTime = startTime;
+
+        // Find the appropriate row based on time
+        let targetRow = null;
+        let startRowIndex = -1;
+
+        // Look for row with matching time
+        for (let i = 0; i < tbody.rows.length; i++) {
+          const row = tbody.rows[i];
+          const cell = row.querySelector('td[data-time]');
+          if (cell) {
+            const rowTime = parseInt(cell.getAttribute('data-time'));
+            if (rowTime === adjustedStartTime) {
+              targetRow = row;
+              startRowIndex = i;
+              break;
+            }
+          }
+        }
+
+        if (!targetRow) return;
+
+        const cell = targetRow.querySelector(`td[data-lane='${lane}']`);
+        if (!cell) return;
+
+        // Calculate span in 15-minute increments
+        const spanRows = Math.round((adjustedEndTime - adjustedStartTime) / step);
+
+        // Fill content and set rowspan; color the entire cell background
+        const pill = document.createElement('span');
+        pill.className = 'event';
+        pill.textContent = label;
+        cell.innerHTML = '';
+        cell.appendChild(pill);
+        cell.rowSpan = spanRows;
+        cell.classList.add('block');
+        if (cssClass) cell.classList.add(cssClass);
+
+        // Remove the covered cells in subsequent rows for this lane
+        for (let r = startRowIndex + 1; r < startRowIndex + spanRows; r++) {
+          const row = tbody.rows[r];
+          if (!row) break;
+          const covered = row.querySelector(`td[data-lane='${lane}']`);
+          if (covered) covered.remove();
+        }
+      }
+
+      // Load and populate events from CSV
+      async function populateFromCSV() {
+        const events = await parseCSV();
+        events.forEach(event => {
+          if (event.lane_num && event.start_time && event.end_time && event.title) {
+            addEventFromCSV(event);
+          }
+        });
+      }
+
+      // Populate the schedule
+      populateFromCSV();
+    })();
+  </script>
+</body>
+</html>
