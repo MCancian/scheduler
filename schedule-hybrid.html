@@ -186,11 +186,27 @@
       width: 100%;
       box-sizing: border-box;
       text-align: center;
-      border: 1px solid #000; /* border around colored pill */
+      border: 2px solid #000; /* thick border around non-block event pill */
     }
-    /* When the entire cell is colored (block), show border around the cell, not the inner label */
-    tbody td.block { border: 1px solid #000; }
+    /* Full-block cells: draw a thick inner border independent of table border-collapsing */
+    tbody td.block { position: relative; }
     tbody td.block .event { border: none; }
+    tbody td.block::after {
+      content: "";
+      position: absolute;
+      inset: 0; /* cover entire cell */
+      border: 2px solid #000;
+      pointer-events: none;
+      border-radius: 0;
+      box-sizing: border-box;
+    }
+    /* Smart border suppression for block overlays
+       - Hide top border when event starts on an exact hour (:00) or when marked as no-top due to adjacency
+       - Hide bottom border when event ends on an exact hour (:00) or when marked as no-bottom due to adjacency */
+    tbody td.block.starts-hour::after,
+    tbody td.block.no-top::after { border-top: 0; }
+    tbody td.block.ends-hour::after,
+    tbody td.block.no-bottom::after { border-bottom: 0; }
     /* Smaller label for 15-minute events */
     .event.short { font-size: 85%; padding: 1px 4px; }
     .event.ech { background: var(--lane-ech); }
@@ -433,6 +449,16 @@
         cell.classList.add('block');
         if (cssClass) cell.classList.add(cssClass);
 
+        // Attach metadata for adjacency logic and hour seam suppression
+        cell.setAttribute('data-start', String(adjustedStartTime));
+        cell.setAttribute('data-end', String(adjustedEndTime));
+        if (adjustedStartTime % 60 === 0) {
+          cell.classList.add('starts-hour');
+        }
+        if (adjustedEndTime % 60 === 0) {
+          cell.classList.add('ends-hour');
+        }
+
         // Remove the covered cells in subsequent rows for this lane
         for (let r = startRowIndex + 1; r < startRowIndex + spanRows; r++) {
           const row = tbody.rows[r];
@@ -452,8 +478,30 @@
         });
       }
 
+      // After all events are placed, mark vertical adjacency (back-to-back events in the same lane)
+      function markVerticalAdjacency() {
+        for (let laneIdx = 1; laneIdx <= lanes; laneIdx++) {
+          const blocks = Array.from(document.querySelectorAll(`td.block[data-lane='${laneIdx}']`));
+          if (blocks.length < 2) continue;
+          // Sort by start time to ensure chronological order
+          blocks.sort((a, b) => parseInt(a.getAttribute('data-start') || '0') - parseInt(b.getAttribute('data-start') || '0'));
+          for (let i = 0; i < blocks.length - 1; i++) {
+            const a = blocks[i];
+            const b = blocks[i + 1];
+            const aEnd = parseInt(a.getAttribute('data-end') || '0');
+            const bStart = parseInt(b.getAttribute('data-start') || '0');
+            if (aEnd === bStart) {
+              // Suppress the interior seam: keep bottom on A unless it's an hour seam (handled by ends-hour), remove top on B
+              b.classList.add('no-top');
+            }
+          }
+        }
+      }
+
       // Populate the schedule
-      populateFromCSV();
+      populateFromCSV().then(() => {
+        markVerticalAdjacency();
+      });
     })();
   </script>
 </body>
