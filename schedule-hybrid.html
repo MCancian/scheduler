@@ -4,6 +4,24 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Event Schedule — Hybrid (Grouped Days with Lanes)</title>
+  <!--
+    Schedule grid semantics and visual rules
+    - Row granularity: Each body row represents a 15-minute time block. The Time label is the START of that block.
+      Example: the row labeled "0600" covers 0600–0615.
+    - Labels: Only :00 and :30 rows show a time label; :15 and :45 rows are unlabeled (still present for layout).
+    - Horizontal grid lines: Drawn at the START of :00 and :30 rows using TOP borders; :00 rows are thicker (2px).
+      :15 and :45 rows have transparent top/bottom so no horizontal line appears.
+    - Late block: 2200–2300 renders as four 15-minute rows with the same rules.
+    - Events:
+        * Full-block cells (td.block with rowspan > 1) color the entire cell and have a 1px black border around the cell.
+          The inner .event inside a block cell has no border (border is on the cell).
+        * Non-block events render as colored ".event" pills with a 1px black border.
+        * 15-minute events (rowSpan === 1) get class ".short" for a smaller, tighter label.
+    - Implementation notes:
+        * tr.quarter-hour marks :15 and :45 rows used to suppress horizontal lines.
+        * tr.hour-mark marks exact-hour rows (:00) to render a thicker top border.
+        * Grid lines are border-top on non-quarter rows; the time label sits above the line.
+  -->
   <style>
     :root {
       --border: #1d3557;
@@ -11,6 +29,7 @@
       --header-bg: #eef3f9;
       --time-bg: #f8fafc;
       --text: #0f172a;
+      --row-h: 28px; /* consistent row height */
 
       /* Lane header colors inspired by the reference image */
       --lane-ech: #d78bdc;          /* purple */
@@ -104,6 +123,9 @@
       vertical-align: top;
     }
 
+    /* Consistent row height across the grid (rowspan multiples stack naturally) */
+    tbody tr { height: var(--row-h); }
+
     tbody tr:nth-child(even) td:not(.time) {
       background-color: #fbfdff;
     }
@@ -113,6 +135,8 @@
       font-weight: 600;
       vertical-align: middle;
       text-align: center;
+      /* Reduce padding so single 15-min rows don't expand */
+      padding: 2px 4px;
     }
     tbody td.block.tan {
       background-color: #f0d19b; /* tan */
@@ -128,11 +152,8 @@
     /* Make the inner pill transparent when used inside a block-filled cell */
     tbody td.block .event {
       background: transparent;
-      padding: 4px 2px;
-      font-size: clamp(11px, 3vw, 18px);
-      display: block;
-      height: 100%;
-      min-height: 20px;
+      padding: 2px 2px;
+      /* Avoid forcing row growth; inherit base .event font-size */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -144,9 +165,15 @@
     }
 
     /* Quarter-hour rows (no time labels) */
-    tr.quarter-hour td.time {
-      border-right: 1px solid var(--border);
-    }
+    /* Keep the sticky time column's right divider, but remove horizontal lines on quarter rows */
+    tr.quarter-hour td.time { border-right: 1px solid var(--border); }
+    tr.quarter-hour td { border-top-color: transparent; border-bottom-color: transparent; }
+    /* Draw grid line at :00 and :30 by using TOP border on non-quarter rows (lines at the start of each block) */
+    tbody tr:not(.quarter-hour) td { border-top: 1px solid #000; border-bottom-color: transparent; }
+    /* Thicker lines on exact hours */
+    tbody tr.hour-mark td { border-top-width: 2px !important; border-top-color: #000 !important; }
+    /* Preserve the thick separator for the late block */
+    tr.late-block td, tr.late-block th { border-top: 4px solid #111; }
 
     /* Compact helpers for content blocks inside cells */
     .event {
@@ -159,7 +186,13 @@
       width: 100%;
       box-sizing: border-box;
       text-align: center;
+      border: 1px solid #000; /* border around colored pill */
     }
+    /* When the entire cell is colored (block), show border around the cell, not the inner label */
+    tbody td.block { border: 1px solid #000; }
+    tbody td.block .event { border: none; }
+    /* Smaller label for 15-minute events */
+    .event.short { font-size: 85%; padding: 1px 4px; }
     .event.ech { background: var(--lane-ech); }
     .event.planners { background: var(--lane-planners); }
     .event.bwatch { background: var(--lane-bwatch); }
@@ -178,7 +211,7 @@
   <header class="classification">UNCLASSIFIED</header>
   <div class="wrap">
     <h1>Weekly Event Schedule</h1>
-    <div class="subtitle">Hybrid layout: grouped days with varying lane counts; half-hour display 0600–1700, plus 2200–2300.</div>
+  <div class="subtitle">Hybrid layout: grouped days with varying lane counts; 15-minute intervals 0600–1700, plus 2200–2300.</div>
 
     <table class="schedule" aria-describedby="table-desc">
       <caption id="table-desc">Time down the left; grouped day headers across the top. Total lanes: 11.</caption>
@@ -272,8 +305,8 @@
 
       // Configurable time window
       const startMinutes = 6 * 60;   // 0600
-      const endMinutes = 17 * 60;    // 1700 for span calculations
-      const lastRowTime = 17 * 60;   // 1700 - actual last row generated
+  const endMinutes = 17 * 60;    // 1700 for span calculations
+  const lastRowTime = endMinutes - 15;   // last starting slot at 16:45 covers to 17:00
       const step = 15;               // minutes
 
       const lanes = 11;              // per requirements (excludes Time column)
@@ -291,14 +324,15 @@
         const timeCell = document.createElement('td');
         timeCell.className = 'time';
 
-        // Only show labels on half-hour marks
+        // Only show labels on half-hours and hours
         const minutes = t % 60;
         if (minutes === 0 || minutes === 30) {
           timeCell.textContent = labelFromMinutes(t);
         } else {
-          timeCell.textContent = ''; // Empty for quarter-hour marks
-          tr.classList.add('quarter-hour'); // Add class for styling
+          timeCell.textContent = '';
+          tr.classList.add('quarter-hour');
         }
+        if (minutes === 0) tr.classList.add('hour-mark');
         tr.appendChild(timeCell);
 
         for (let i = 0; i < lanes; i++) {
@@ -311,14 +345,14 @@
       }
 
       // Add rows for 2200-2300 (22:00 to 23:00) with 15-minute increments
-      for (let t = 22 * 60; t <= 23 * 60; t += step) {
+      for (let t = 22 * 60; t <= 23 * 60 - 15; t += step) {
         const tr = document.createElement('tr');
         if (t === 22 * 60) tr.className = 'late-block'; // Dark separator for first row
 
         const timeCell = document.createElement('td');
         timeCell.className = 'time';
 
-        // Only show labels on half-hour marks
+        // Only show labels on half-hours and hours
         const minutes = t % 60;
         if (minutes === 0 || minutes === 30) {
           timeCell.textContent = labelFromMinutes(t);
@@ -326,6 +360,7 @@
           timeCell.textContent = '';
           tr.classList.add('quarter-hour');
         }
+        if (minutes === 0) tr.classList.add('hour-mark');
         tr.appendChild(timeCell);
 
         for (let i = 0; i < lanes; i++) {
@@ -382,12 +417,15 @@
         const cell = targetRow.querySelector(`td[data-lane='${lane}']`);
         if (!cell) return;
 
-        // Calculate span in 15-minute increments
-        const spanRows = Math.round((adjustedEndTime - adjustedStartTime) / step);
+  // Calculate span in 15-minute increments
+  const spanRows = Math.round((adjustedEndTime - adjustedStartTime) / step);
 
         // Fill content and set rowspan; color the entire cell background
         const pill = document.createElement('span');
         pill.className = 'event';
+        if (spanRows === 1) {
+          pill.classList.add('short');
+        }
         pill.textContent = label;
         cell.innerHTML = '';
         cell.appendChild(pill);

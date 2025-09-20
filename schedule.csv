@@ -1,8 +1,7 @@
 day,lane_num,lane_desc,start_time,end_time,title,location
-Wed,1,Events,07:00,09:00,Check-in,Individual
-Wed,1,Events,09:00,12:00,Adjudication Training,C-306/7
-Wed,1,Events,12:00,13:00,Lunch,Individual
-Wed,1,Events,15:30,19:00,Check-in Sims,Individual
+Wed,1,Events,07:00,08:00,Check-in,Individual
+Wed,1,Events,08:00,16:00,Adjudication Training,C-306/7
+Wed,1,Events,16:00,17:00,Check-in Sims (ends 1830),Individual
 
 Thu,2,Lane 1,07:00,07:45,Late Check-in,Individual
 Thu,2,Lane 1,08:00,09:30,Welcome & In-Briefs,C-109 + VTC
